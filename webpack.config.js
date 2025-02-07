@@ -15,18 +15,19 @@ module.exports = {
   },
   // Liste des plugins que Webpack va utiliser
   plugins: [
-    // On configure le plugin HtmlWebpackPlugin
-    new HtmlWebpackPlugin({
-      // Il va utiliser le fichier ./public/index.html comme modèle
-      // et y injecter automatiquement les scripts JavaScript générés
-      template: "./public/index.html",
-    }),
     new ModuleFederationPlugin({
       name: "products", // nom unique du remote
       filename: "remoteEntry.js", // point d'entrée pour l'intégration
       exposes: {
         "./ProductsIndex": "./src/index", // expose le composant
       },
+      shared: ["faker"],
+    }),
+    // On configure le plugin HtmlWebpackPlugin
+    new HtmlWebpackPlugin({
+      // Il va utiliser le fichier ./public/index.html comme modèle
+      // et y injecter automatiquement les scripts JavaScript générés
+      template: "./public/index.html",
     }),
   ],
 };
